@@ -1,0 +1,20 @@
+name: Sync from upstream
+on:
+  schedule:
+    # 1:00 AM every day
+    - cron:  '0 1 * * *'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: sync from upstream
+        env:
+          SYNC_URL: 'https://github.com/spack/spack'
+          SYNC_BRANCH: 'develop'
+        run: |
+          git remote add upstream  "$SYNC_URL"
+          git fetch upstream
+          git checkout -b $SYNC_BRANCH upstream/$SYNC_BRANCH
+          git push origin $SYNC_BRANCH
