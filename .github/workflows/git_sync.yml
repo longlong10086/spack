@@ -3,7 +3,7 @@ on:
   schedule:
     # 每天凌晨一点执行一次
     - cron:  '0 1 * * *'
-  workflow_dispatch:  #run manually  
+  #workflow_dispatch:  #run manually  
 
 jobs:
   sync:
@@ -13,25 +13,19 @@ jobs:
         #env:
           #GITHUB_TOKEN: '${{ secrets.WFTOKEN }}' #token with `workflows` permission
         with:
-          repository: spack/spack
-          token: '${{ secrets.WFTOKEN }}'
-          ref: develop
+          token: '${{ secrets.WFTOKEN3 }}'
       - name: sync from upstream
         env:
-          SYNC_URL: 'https://github.com/longlong10086/spack'
+          SYNC_URL: 'https://github.com/spack/spack'
           SYNC_BRANCH: 'develop'
         run: |
           cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
           
-          echo "======begin at [`date +%Y-%m-%d.%H:%M:%S.%Z`]======\n"
-                    
-          git remote add upstream  "$SYNC_URL"
-          
-          echo "---local branch---"
+          echo -e "\n---local branch---"
           git branch 
-          echo "------------------"
-          git remote -v 
-          ls
-          git push --force upstream $SYNC_BRANCH
-         
-          echo "\n======end at [`date +%Y-%m-%d.%H:%M:%S.%Z`]======"
+          echo -e "------------------\n"
+
+          git remote add upstream  "$SYNC_URL"
+          git fetch upstream
+          git checkout -b $SYNC_BRANCH upstream/$SYNC_BRANCH
+          git push --force origin $SYNC_BRANCH
