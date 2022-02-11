@@ -1,23 +1,31 @@
 name: Sync from upstream
 on:
   schedule:
-    # 1:00 AM every day
+    # 每天凌晨一点执行一次
     - cron:  '0 1 * * *'
+  #workflow_dispatch:  #run manually  
 
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        env:
-          GITHUB_TOKEN: '${{ secrets.WFTOKEN }}' #token with `workflows` permission
+        #env:
+          #GITHUB_TOKEN: '${{ secrets.WFTOKEN }}' #token with `workflows` permission
+        with:
+          token: '${{ secrets.WFTOKEN }}'
       - name: sync from upstream
         env:
           SYNC_URL: 'https://github.com/spack/spack'
           SYNC_BRANCH: 'develop'
-          GITHUB_TOKEN: '${{ secrets.WFTOKEN }}' #token with `workflows` permission
         run: |
+          cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
+          
+          echo -e "\n---local branch---"
+          git branch 
+          echo -e "------------------\n"
+
           git remote add upstream  "$SYNC_URL"
           git fetch upstream
           git checkout -b $SYNC_BRANCH upstream/$SYNC_BRANCH
-          git push origin $SYNC_BRANCH
+          git push --force origin $SYNC_BRANCH
