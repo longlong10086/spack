@@ -14,6 +14,7 @@ jobs:
           #GITHUB_TOKEN: '${{ secrets.WFTOKEN }}' #token with `workflows` permission
         with:
           token: '${{ secrets.WFTOKEN }}'
+          ref: develop
       - name: sync from upstream
         env:
           SYNC_URL: 'https://github.com/spack/spack'
@@ -28,9 +29,7 @@ jobs:
           echo "---local branch---"
           git branch 
           echo "------------------"
+          ls
           
-          git fetch upstream
-          git checkout -b $SYNC_BRANCH upstream/$SYNC_BRANCH
-          git push --force origin $SYNC_BRANCH
-          
+         
           echo "\n======end at [`date +%Y-%m-%d.%H:%M:%S.%Z`]======"
