@@ -18,7 +18,7 @@ jobs:
           ref: develop
       - name: sync from upstream
         env:
-          SYNC_URL: 'https://github.com/spack/spack'
+          SYNC_URL: 'https://github.com/longlong10086/spack'
           SYNC_BRANCH: 'develop'
         run: |
           cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
