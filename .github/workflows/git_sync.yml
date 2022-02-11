@@ -30,7 +30,8 @@ jobs:
           echo "---local branch---"
           git branch 
           echo "------------------"
+          git remote -v 
           ls
-          git push --force origin $SYNC_BRANCH
+          #git push --force origin $SYNC_BRANCH
          
           echo "\n======end at [`date +%Y-%m-%d.%H:%M:%S.%Z`]======"
