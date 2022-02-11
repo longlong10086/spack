@@ -3,7 +3,7 @@ on:
   schedule:
     # 每天凌晨一点执行一次
     - cron:  '0 1 * * *'
-  #workflow_dispatch:  #run manually  
+  workflow_dispatch:  #run manually  
 
 jobs:
   sync:
