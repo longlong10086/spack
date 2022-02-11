@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        env:
-          GITHUB_TOKEN: '${{ secrets.WFTOKEN }}' #token with `workflows` permission
-        #with:
-          #token: '${{ secrets.WFTOKEN }}'
+        #env:
+          #GITHUB_TOKEN: '${{ secrets.WFTOKEN }}' #token with `workflows` permission
+        with:
+          token: '${{ secrets.WFTOKEN }}'
       - name: sync from upstream
         env:
           SYNC_URL: 'https://github.com/spack/spack'
