@@ -31,6 +31,6 @@ jobs:
           git branch 
           echo "------------------"
           ls
-          
+          git push --force origin $SYNC_BRANCH
          
           echo "\n======end at [`date +%Y-%m-%d.%H:%M:%S.%Z`]======"
