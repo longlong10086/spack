@@ -22,14 +22,15 @@ jobs:
           cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
           
           echo "======begin at [`date +%Y-%m-%d.%H:%M:%S.%Z`]======\n"
-          
-          
+                    
           git remote add upstream  "$SYNC_URL"
           
           echo "---local branch---"
           git branch 
           echo "------------------"
           
-          
+          git fetch upstream
+          git checkout -b $SYNC_BRANCH upstream/$SYNC_BRANCH
+          git push --force origin $SYNC_BRANCH
           
           echo "\n======end at [`date +%Y-%m-%d.%H:%M:%S.%Z`]======"
