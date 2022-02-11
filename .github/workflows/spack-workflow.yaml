@@ -23,6 +23,8 @@ jobs:
           
           git remote add upstream  "$SYNC_URL"
           git branch -a
+          git status 
+          ls     
           #git fetch upstream
           #git checkout -b $SYNC_BRANCH upstream/$SYNC_BRANCH
           #git push --force origin $SYNC_BRANCH
