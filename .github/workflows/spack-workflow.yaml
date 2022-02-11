@@ -33,12 +33,16 @@ jobs:
           if git rev-parse --verify $SYNC_BRANCH;then
               echo "local branch named '$SYNC_BRANCH' already exists，update"
               git config pull.rebase false
+              git config --global user.email "autoyml@example.com"  
+              git config --global user.name "autoyml"
               git pull  upstream  $SYNC_BRANCH --allow-unrelated-histories
           else
               echo "local branch named '$SYNC_BRANCH' doesn't exist,fetch from upstream"
               git fetch upstream
               git checkout -b $SYNC_BRANCH upstream/$SYNC_BRANCH
           fi
+          
+          
  
           git push --force origin $SYNC_BRANCH
           
