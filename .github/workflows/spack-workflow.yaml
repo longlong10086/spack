@@ -21,10 +21,24 @@ jobs:
         run: |
           cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
           
+          echo "======begin at [`date +%Y-%m-%d.%H:%M:%S.%Z`]======\n"
+          
+          
           git remote add upstream  "$SYNC_URL"
-          git branch -a
-          git status 
-          ls     
-          #git fetch upstream
-          #git checkout -b $SYNC_BRANCH upstream/$SYNC_BRANCH
-          #git push --force origin $SYNC_BRANCH
+          
+          echo "---local branch---"
+          git branch 
+          echo "------------------"
+          
+          if git rev-parse --verify $SYNC_BRANCH;then
+              echo "local branch named '$SYNC_BRANCH' already exists，update"
+              git pull  upstream  $SYNC_BRANCH
+          else
+              echo "local branch named '$SYNC_BRANCH' doesn't exist,fetch from upstream"
+              git fetch upstream
+              git checkout -b $SYNC_BRANCH upstream/$SYNC_BRANCH
+          fi
+ 
+          git push --force origin $SYNC_BRANCH
+          
+          echo "\n======end at [`date +%Y-%m-%d.%H:%M:%S.%Z`]======"
